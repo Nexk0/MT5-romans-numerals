@@ -1,29 +1,8 @@
 # mt5-romans-numerals
+Utilisez un dictionnaire pour associer chaque chiffre romain à sa valeur en nombre arabe.
 
-This template should help get you started developing with Vue 3 in Vite.
+Commencez par le chiffre romain le plus grand et soustrayez-le du nombre arabe autant de fois que possible. Ajoutez ce chiffre romain au résultat.
 
-## Recommended IDE Setup
+Répétez cette étape pour chaque chiffre romain, en allant du plus grand au plus petit.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```
