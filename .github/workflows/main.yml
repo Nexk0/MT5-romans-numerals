@@ -29,7 +29,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
-          target: "${{ secrets.TARGET }}-build-testing/"
+          target: ${{ secrets.TARGET }}
 
       - name: Executing remote command via ssh to build
         uses: appleboy/ssh-action@master
@@ -40,7 +40,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}-build-testing/
+            cd ${{secrets.TARGET}}
             npm run build
 
   unit-tests:
@@ -83,20 +83,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: e2e-tests
     steps:
-      - name: Copy built files to final directory
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          key: ${{ secrets.SSHKEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          source: "${{ secrets.TARGET }}-build-testing/"
-          target: "${{ secrets.TARGET }}/"
-
-      - name: Clean up testing directory
-        run: |
-          rm -rf "${{ secrets.TARGET }}-build-testing/"
-
       - name: Deploy to Production
         # Add your deployment steps here
