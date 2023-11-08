@@ -15,26 +15,36 @@ const number = ref({
   <div id="app" class="template-page">
     <div class="container">
       <h1>Convertisseur Nombre Arabe en Romain</h1>
-      <input v-model="number.arabic" @input="number.roman = ConvertToRoman(number.arabic)" placeholder="Entrez un nombre arabe" type="number" max="3999" >
-      <input v-model="number.roman" @input="number.arabic = ConvertToArabic(number.roman)" placeholder="Entrez un nombre romain" type="text" >
+      <div class="inputs">
+        <input v-model="number.arabic" @input="number.roman = ConvertToRoman(number.arabic)" placeholder="Entrez un nombre arabe" type="number" max="3999" >
+        <img src="/arrows-h.svg">
+        <input v-model="number.roman" @input="number.arabic = ConvertToArabic(number.roman)" placeholder="Entrez un nombre romain" type="text" >
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .template-page{
-  background-color: #181818;
+  display: flex;
 }
 
 .container{
-  width: 50%;
-  position: absolute;
+  margin: auto;
   text-align: center;
-  left: calc(50% - 25%);
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .inputs {
+  display: flex;
+  gap: 1rem;
 }
 
 .container input{
-background-color: black;
+  background-color: black;
   outline: none;
   border: none;
   border-radius: 25px;
