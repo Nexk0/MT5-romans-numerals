@@ -95,7 +95,8 @@ jobs:
           target: "${{ secrets.TARGET }}/"
 
       - name: Clean up testing directory
-        run: rm -rf "${{ secrets.TARGET }}-build-testing/"
+        run: |
+          rm -rf "${{ secrets.TARGET }}-build-testing/"
 
       - name: Deploy to Production
         # Add your deployment steps here
