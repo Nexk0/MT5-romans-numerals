@@ -2,7 +2,7 @@ const ConvertToRoman = (arabicNumber) => {
   let arabic = parseInt(arabicNumber);
 
   if (isNaN(arabic) || arabic < 1 || arabic > 3999) {
-    return "Veuillez entrer un nombre valide (1-3999).";
+    throw new Error("Veuillez entrer un nombre valide (1-3999).");
   }
 
   const romanNumerals = {
