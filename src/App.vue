@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { Ref } from "vue";
 import ConvertToRoman from "../composables/ConvertToRoman";
 import ConvertToArabic from "../composables/ConvertToArabic";
 
@@ -16,9 +15,9 @@ const number = ref({
     <div class="container">
       <h1>Convertisseur Nombre Arabe en Romain</h1>
       <div class="inputs">
-        <input v-model="number.arabic" @input="number.roman = ConvertToRoman(number.arabic)" placeholder="Entrez un nombre arabe" type="number" max="3999" >
+        <input id="arabic-number" v-model="number.arabic" @input="number.roman = ConvertToRoman(number.arabic)" placeholder="Entrez un nombre arabe" type="number" max="3999" >
         <img src="/arrows-h.svg">
-        <input v-model="number.roman" @input="number.arabic = ConvertToArabic(number.roman)" placeholder="Entrez un nombre romain" type="text" >
+        <input id="roman-number" v-model="number.roman" @input="number.arabic = ConvertToArabic(number.roman)" placeholder="Entrez un nombre romain" type="text" >
       </div>
     </div>
   </div>
