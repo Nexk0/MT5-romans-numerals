@@ -1,10 +1,13 @@
 import express from 'express'
 import cors from 'cors'
+import dotenv from 'dotenv'
 import ConvertToArabic from "./utils/ConvertToArabic";
 import ConvertToRoman from "~~/utils/ConvertToRoman";
 
 const server = express()
 server.use(cors());
+
+dotenv.config()
 
 server.get('/convert-to-arabic/:number', (req, res) => {
     const conversion = ConvertToArabic(req.params.number)
@@ -16,4 +19,6 @@ server.get('/convert-to-roman/:number', (req, res) => {
     return res.json(conversion)
 })
 
-server.listen(5000)
+server.listen(process.env.API_PORT || 5001, () => {
+    console.log('Listening on ' + process.env.API_PORT || 5001)
+})
