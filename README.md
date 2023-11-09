@@ -45,3 +45,14 @@ Pour lancer ces tests, utiliser les commandes suivantes :
 - ```npm run start:server``` lance le serveur Express.
 
 L'application Vue 3 est générée, elle n'a pas besoin de runtime.
+
+&nbsp;
+## Pipelines de déploiement
+Lors d'un merge sur la branche ```main```, le projet est sujet à différents jobs mettant en application toutes les sécurités précédentes et permettant de déployer l'application de manière plus propre.
+
+- Build (Front + Back)
+- Tests unitaires
+- Tests E2E
+- Déploiement sur le serveur
+
+
