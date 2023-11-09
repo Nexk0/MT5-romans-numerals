@@ -101,7 +101,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-tests
     steps:
-      - name: Copy built files to final directory
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Copy repository contents to remote server via scp
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -110,8 +121,9 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
-          target: ${{ secrets.TARGET }}
-      - name: Building client and server, starting server
+          target: "${{ secrets.TARGET }}"
+
+      - name: Executing server and client build
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -120,7 +132,8 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}/
+            cd ${{secrets.TARGET}}
+            printf "%s" "${{secrets.PROD_ENV}}" > "${{secrets.TARGET}}/.env"
             npm run build:client
             npm run build:server
             pm2 start
