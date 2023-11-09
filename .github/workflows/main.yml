@@ -29,9 +29,9 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
-          target: "${{ secrets.TARGET }}-build-testing/"
+          target: "${{ secrets.TARGET }}-build-testing-non/"
 
-      - name: Executing remote command via ssh to build
+      - name: Executing server and client build
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -45,7 +45,7 @@ jobs:
             npm run build:client
             npm run build:server
 
-      - name: Display ASCII Art
+      - name: Build sucessfull / Best lap time 
         run: |
           echo "                                 *(###*#%%%##/"
           echo "                            (/#(#((/%#(((/(%&&&/%/."
@@ -111,7 +111,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
           target: ${{ secrets.TARGET }}
-      - name: Executing remote command via ssh to build
+      - name: Building client and server, starting server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
