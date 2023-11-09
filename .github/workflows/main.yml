@@ -65,9 +65,6 @@ jobs:
         
       - name: Building server
         run: npm run build:server
-        
-      - name: Starting server
-        run: npm run start:server
 
       - name: Run unit tests
         run: npm run test:unit
@@ -86,6 +83,9 @@ jobs:
 
       - name: Install project dependencies
         run: npm install
+
+      - name: Set PROD_ENV in .env file
+        run: echo "PROD_ENV=${{ secrets.PROD_ENV }}" > .env
         
       - name: Building client
         run: npm run build:client
@@ -94,7 +94,13 @@ jobs:
         run: npm run build:server
 
       - name: Starting server
-        run: npm run start:server
+        run: npm run start:server &
+        
+      - name: Wait for server to be ready
+        run: |
+          while ! nc -z localhost 5000; do
+            sleep 1
+          done
 
       - name: Run end-to-end tests
         run: npm run test:e2e
