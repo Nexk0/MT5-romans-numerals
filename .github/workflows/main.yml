@@ -93,7 +93,3 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
           target: ${{ secrets.TARGET }}
-
-      - name: Clean up testing directory
-        run: |
-          rm -r "${{ secrets.TARGET }}-build-testing/*"
