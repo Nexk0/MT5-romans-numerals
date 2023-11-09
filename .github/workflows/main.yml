@@ -92,8 +92,8 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "${{ secrets.TARGET }}-build-testing/"
-          target: "${{ secrets.TARGET }}/"
+          target: "${{ secrets.TARGET }}"
 
       - name: Clean up testing directory
         run: |
-          rm -rf "${{ secrets.TARGET }}-build-testing/"
+          rm -r "${{ secrets.TARGET }}-build-testing/*"
