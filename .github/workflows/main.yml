@@ -100,40 +100,6 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     needs: unit-tests   
-    env:
-      VITE_API_ENDPOINT: http://localhost:5000/
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install project dependencies
-        run: npm install
-
-      - name: Building client
-        run: npm run build:client
-
-      - name: Building server
-        run: npm run build:server
-
-      - name: Start server
-        run: npm run start:server &    
-        
-      - name: Wait for server to be ready
-        run: |
-          npx wait-on http://localhost:5000/
-        
-      - name: Start e2e Testing
-        run: npm run test:e2e
-
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: e2e-tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -171,3 +137,47 @@ jobs:
             npm run build:client
             npm run build:server
             pm2 start
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: e2e-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Copy repository contents to remote server via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSHKEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "."
+          target: "${{ secrets.TARGET }}"
+
+      - name: Executing server and client build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          key: ${{ secrets.SSHKEY }}
+          script: |
+            cd ${{secrets.TARGET}}-build-testing/
+            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/.env"
+            npm run build:client
+            npm run build:server
+            pm2 start
+            npm run test:e2e
+            pm2 stop
