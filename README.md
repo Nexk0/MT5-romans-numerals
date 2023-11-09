@@ -31,7 +31,7 @@ Le serveur Express sert deux routes GET :
 Deux types de tests unitaires ont été mis en place : unitaires et e2e.
 Les tests unitaires (cf [Vitest](https://vitest.dev/guide/)) concernent les fonctions de conversions de nombres elles-mêmes, on trouve les fichiers de test au même niveau qu'elles (```server/utils```).
 
-Les tests e2e utilisent Cypress, leurs fichiers sont dans ```/cypress```
+Les tests e2e utilisent [Cypress](https://docs.cypress.io/guides/overview/why-cypress), leurs fichiers sont dans ```/cypress```
 
 Pour lancer ces tests, utiliser les commandes suivantes :
 
@@ -41,7 +41,13 @@ Pour lancer ces tests, utiliser les commandes suivantes :
 ### Production
 
 - ```npm run build:client``` lance le build de l'application Vue3.
+  - Destination : ```/dist```
+
+
 - ```npm run build:server``` lance le build du serveur Express.
+  - Destination : ```/server/dist```
+
+
 - ```npm run start:server``` lance le serveur Express.
 
 L'application Vue 3 est générée, elle n'a pas besoin de runtime.
