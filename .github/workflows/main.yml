@@ -94,7 +94,7 @@ jobs:
         run: npm run build:server
 
       - name: Starting server
-        run: npm run start:server
+        run: npm run start:server &
 
       - name: Run end-to-end tests
         run: npm run test:e2e
