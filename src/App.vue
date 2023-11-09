@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ConvertToRoman from "../composables/ConvertToRoman";
-import ConvertToArabic from "../composables/ConvertToArabic";
+import ConvertToRoman from "../server/utils/ConvertToRoman";
+import ConvertToArabic from "../server/utils/ConvertToArabic";
 
 const number = ref({
   arabic: 0,
