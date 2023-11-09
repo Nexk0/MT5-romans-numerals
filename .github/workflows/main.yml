@@ -29,7 +29,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
-          target: "${{ secrets.TARGET }}-build-testing-non/"
+          target: "${{ secrets.TARGET }}-build-testing/"
 
       - name: Executing server and client build
         uses: appleboy/ssh-action@master
@@ -41,7 +41,8 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             cd ${{secrets.TARGET}}-build-testing-non/
-            printf "%s" "${{secrets.PROD_ENV}}" > "${{secrets.TARGET}}/.env"
+            printf "%s" "${{secrets.PROD_VITE_API_ENDPOINT}}" > "${{secrets.TARGET}}build-testing/.env"
+            printf "%s" "${{secrets.PROD_PORT}}" > "${{secrets.TARGET}}build-testing/server/.env"
             npm run build:client
             npm run build:server
 
@@ -133,8 +134,8 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             cd "${{secrets.TARGET}}-build-testing"
-            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/server/.env"
-            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/.env"
+            printf "%s" "${{secrets.DEV_VITE_API_ENDPOINT}}" > "${{secrets.TARGET}}-build-testing/.env"
+            printf "%s" "${{secrets.DEV_PORT}}" > "${{secrets.TARGET}}-build-testing/server/.env"
             npm run build:client
             npm run build:server
             pm2 start            
@@ -176,8 +177,9 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}-build-testing/
-            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/.env"
+            cd ${{secrets.TARGET}}-/
+            printf "%s" "${{secrets.PROD_VITE_API_ENDPOINT}}" > "${{secrets.TARGET}}/.env"
+            printf "%s" "${{secrets.PROD_PORT}}" > "${{secrets.TARGET}}/server/.env"
             npm run build:client
             npm run build:server
             pm2 start
