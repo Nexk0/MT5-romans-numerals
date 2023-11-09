@@ -111,14 +111,14 @@ jobs:
         with:
           node-version: 14
 
+      - name: Install project dependencies
+        run: npm install
+
       - name: Building client
         run: npm run build:client
 
       - name: Building server
         run: npm run build:server
-        
-      - name: Install project dependencies
-        run: npm install
 
       - name: Start server
         run: npm run start:server &
