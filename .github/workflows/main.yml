@@ -121,7 +121,11 @@ jobs:
         run: npm run build:server
 
       - name: Start server
-        run: npm run start:server &
+        run: npm run start:server &    
+        
+      - name: Wait for server to be ready
+        run: |
+          npx wait-on http://localhost:5000/
         
       - name: Start e2e Testing
         run: npm run test:e2e
