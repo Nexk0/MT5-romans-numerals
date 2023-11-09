@@ -1,12 +1,38 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ConvertToRoman from "../server/utils/ConvertToRoman";
-import ConvertToArabic from "../server/utils/ConvertToArabic";
 
 const number = ref({
   arabic: 0,
   roman: "",
 })
+
+const handleInput = async (type: 'AtoR' | 'RtoA') => {
+  switch(type) {
+    case "AtoR": {
+      fetch(`${import.meta.env.VITE_API_ENDPOINT}/convert-to-roman/${number.value.arabic}`)
+          .then(res => {
+            return res.json()
+          })
+          .then(data => {
+            console.log(data)
+            number.value.roman = data
+          })
+      break;
+    }
+
+    case "RtoA": {
+      fetch(`${import.meta.env.VITE_API_ENDPOINT}/convert-to-arabic/${number.value.roman}`)
+          .then(res => {
+            return res.json()
+          })
+          .then(data => {
+            console.log(data)
+            number.value.arabic = data
+          })
+      break;
+    }
+  }
+}
 
 </script>
 
@@ -15,9 +41,9 @@ const number = ref({
     <div class="container">
       <h1>Convertisseur Nombre Arabe en Romain</h1>
       <div class="inputs">
-        <input id="arabic-number" v-model="number.arabic" @input="number.roman = ConvertToRoman(number.arabic)" placeholder="Entrez un nombre arabe" type="number" max="3999" >
+        <input id="arabic-number" v-model="number.arabic" @input="handleInput('AtoR')" placeholder="Entrez un nombre arabe" type="number" max="3999" >
         <img src="/arrows-h.svg">
-        <input id="roman-number" v-model="number.roman" @input="number.arabic = ConvertToArabic(number.roman)" placeholder="Entrez un nombre romain" type="text" >
+        <input id="roman-number" v-model="number.roman" @input="handleInput('RtoA')" placeholder="Entrez un nombre romain" type="text" >
       </div>
     </div>
   </div>

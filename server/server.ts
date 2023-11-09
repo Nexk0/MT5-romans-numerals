@@ -1,8 +1,10 @@
 import express from 'express'
+import cors from 'cors'
 import ConvertToArabic from "./utils/ConvertToArabic";
 import ConvertToRoman from "~~/utils/ConvertToRoman";
 
 const server = express()
+server.use(cors());
 
 server.get('/convert-to-arabic/:number', (req, res) => {
     const conversion = ConvertToArabic(req.params.number)
