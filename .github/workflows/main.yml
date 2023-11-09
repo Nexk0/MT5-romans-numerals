@@ -91,8 +91,8 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: "${{ secrets.TARGET }}-build-testing/"
-          target: "${{ secrets.TARGET }}"
+          source: ${{ secrets.TARGET }}
+          target: ${{ secrets.TARGET }}
 
       - name: Clean up testing directory
         run: |
