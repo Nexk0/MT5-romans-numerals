@@ -95,6 +95,12 @@ jobs:
 
       - name: Starting server
         run: npm run start:server &
+        
+      - name: Wait for server to be ready
+        run: |
+          while ! nc -z localhost 5000; do
+            sleep 1
+          done
 
       - name: Run end-to-end tests
         run: npm run test:e2e
