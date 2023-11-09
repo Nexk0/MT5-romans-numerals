@@ -121,7 +121,7 @@ jobs:
         run: npm run build:server
 
       - name: Start server
-        run: npm run start:server
+        run: npm run start:server &
 
       - name: Start e2e Testing
         run: npm run test:e2e
