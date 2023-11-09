@@ -85,7 +85,7 @@ jobs:
         run: npm install
 
       - name: Set PROD_ENV in .env file
-        run: printf "%s" "${{secrets.PROD_ENV}}" > .env
+        run: echo "PROD_ENV=${{ secrets.PROD_ENV }}" > .env
         
       - name: Building client
         run: npm run build:client
