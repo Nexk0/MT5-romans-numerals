@@ -40,7 +40,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}-build-testing-non/
+            cd ${{secrets.TARGET}}-build-testing/
             printf "%s" "${{secrets.PROD_VITE_API_ENDPOINT}}" > "${{secrets.TARGET}}build-testing/.env"
             printf "%s" "${{secrets.PROD_PORT}}" > "${{secrets.TARGET}}build-testing/server/.env"
             npm run build:client
