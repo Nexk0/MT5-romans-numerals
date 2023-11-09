@@ -40,7 +40,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}-build-testing/
+            cd ${{secrets.TARGET}}-build-testing-non/
             printf "%s" "${{secrets.PROD_ENV}}" > "${{secrets.TARGET}}/.env"
             npm run build:client
             npm run build:server
@@ -121,7 +121,6 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             cd ${{secrets.TARGET}}/
-            printf "%s" "${{secrets.PROD_ENV}}" > "${{secrets.TARGET}}/.env"
             npm run build:client
             npm run build:server
             pm2 start
