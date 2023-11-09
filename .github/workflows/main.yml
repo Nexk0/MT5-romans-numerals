@@ -121,7 +121,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "."
-          target: "${{ secrets.TARGET }}"
+          target: "${{ secrets.TARGET }}-build-testing"
 
       - name: Executing server and client build
         uses: appleboy/ssh-action@master
@@ -132,8 +132,8 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd ${{secrets.TARGET}}
-            printf "%s" "${{secrets.PROD_ENV}}" > "${{secrets.TARGET}}/.env"
+            cd "${{secrets.TARGET}}-build-testing"
+            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/.env"
             npm run build:client
             npm run build:server
             pm2 start            
