@@ -1,5 +1,5 @@
-const ConvertToArabic = (romanNumeral) => {
-  const romanNumerals = {
+const ConvertToArabic = (romanNumeral: string) => {
+  const romanNumerals: { [key: string]: number } = {
     M: 1000,
     D: 500,
     C: 100,
