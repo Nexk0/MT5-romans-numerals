@@ -91,7 +91,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: ${{ secrets.TARGET }}
+          source: "."
           target: ${{ secrets.TARGET }}
 
       - name: Clean up testing directory
