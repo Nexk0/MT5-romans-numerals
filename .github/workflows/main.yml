@@ -133,6 +133,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             cd "${{secrets.TARGET}}-build-testing"
+            printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/server/.env"
             printf "%s" "${{secrets.DEV_ENV}}" > "${{secrets.TARGET}}-build-testing/.env"
             npm run build:client
             npm run build:server
