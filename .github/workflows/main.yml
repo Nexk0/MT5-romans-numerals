@@ -111,18 +111,18 @@ jobs:
         with:
           node-version: 14
 
+      - name: Building client
+        run: npm run build:client
+
+      - name: Building server
+        run: npm run build:server
+        
       - name: Install project dependencies
         run: npm install
 
-      - name: Building client
-        run: npm run build:client
-        
-      - name: Building server
-        run: npm run build:server
-
       - name: Start server
         run: npm run start:server &
-
+        
       - name: Start e2e Testing
         run: npm run test:e2e
 
